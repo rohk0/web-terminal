@@ -229,7 +229,7 @@ function formatValue(val) {
 }
 
 // Load Pyodide when Python is first selected or used
-async function loadPyodide() {
+async function initPyodide() {
   if (pyodideReady || pyodideLoading) return;
   pyodideLoading = true;
   pyLoading.classList.add('show');
@@ -272,13 +272,13 @@ sys.stderr = TerminalOut(True)
 // Start loading Python when selected
 langSelect.addEventListener('change', () => {
   if (langSelect.value === 'python' && !pyodideReady) {
-    loadPyodide();
+    initPyodide();
   }
 });
 
 async function runPython(code) {
   if (!pyodideReady) {
-    await loadPyodide();
+    await initPyodide();
     if (!pyodideReady) return;
   }
 
